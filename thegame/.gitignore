@@ -12,10 +12,10 @@
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
-/[Mm]emoryCaptures/
+[Mm]emoryCaptures/
 
 # Recordings can get excessive in size
-/[Rr]ecordings/
+[Rr]ecordings/
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -65,11 +65,13 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Packed Addressables
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+thegame
 
 .vs/
 Builds/
@@ -85,7 +87,7 @@ UserSettings
 
 
 Assets/Art
-Assets/Annimations
+Assets/Animations
 Assets/Game
 Assets/Scenes
 Assets/spirtes
@@ -93,7 +95,7 @@ Assets/TextMesh Pro
 Assets/tiles
 
 Assets/Art.meta
-Assets/Annimations.meta
+Assets/Animations.meta
 Assets/Game.MemoryCaptures.meta
 Assets/Scenes.meta
 Assets/spirtes.meta
