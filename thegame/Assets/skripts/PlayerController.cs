@@ -16,11 +16,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>() ;
+        animator = GetComponent<Animator>();
         random = new System.Random();
-        
     }
-
 
     public void Update()
     {
@@ -31,12 +29,10 @@ public class PlayerController : MonoBehaviour
 
             if (input.x != 0) input.y = 0;
 
-
-            if(input != Vector2.zero)
+            if (input != Vector2.zero)
             {
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
-
 
                 var targetPos = transform.position;
                 targetPos.x += input.x;
@@ -44,17 +40,16 @@ public class PlayerController : MonoBehaviour
 
                 if (IsWalkable(targetPos))
                     StartCoroutine(Move(targetPos));
-                
             }
         }
 
         animator.SetBool("isMoving", isMoving);
     }
-    
+
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon )
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
@@ -63,9 +58,8 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
 
         CheckForEncounters();
-
     }
-    
+
     private bool IsWalkable(Vector3 targetPos)
     {
         if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectLayer) != null)
@@ -75,19 +69,14 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-
     private void CheckForEncounters()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
         {
-          if (random.Next(1, 101) <= 10)
+            if (random.Next(1, 101) <= 10)
             {
                 Debug.Log("pokemon alert");
             }
         }
     }
-
-
-
 }
-

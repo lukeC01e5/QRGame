@@ -6,12 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-
 public class Button4Login : MonoBehaviour
 {
-
-    //private const string PASSWORD_REGEX = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,24})";
-
     [SerializeField] private string loginEndpoint = "http://gameapi-2e9bb6e38339.herokuapp.com/api/v1/login";
     [SerializeField] private string createEndpoint = "http://gameapi-2e9bb6e38339.herokuapp.com/api/v1/create_account";
 
@@ -21,8 +17,6 @@ public class Button4Login : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField passwordInputField;
 
-
-
     private void Start()
     {
         if (loginButton != null)
@@ -31,7 +25,6 @@ public class Button4Login : MonoBehaviour
         if (createButton != null)
             createButton.onClick.AddListener(CreateAccount);
     }
-
 
     public class User
     {
@@ -54,7 +47,6 @@ public class Button4Login : MonoBehaviour
 
         StartCoroutine(TryCreateAccountCoroutine());
     }
-
 
     private IEnumerator TryLoginCoroutine()
     {
@@ -92,12 +84,33 @@ public class Button4Login : MonoBehaviour
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 Debug.Log("Login request succeeded. Server response: " + jsonResponse);
+                alertText.text = "Welcome " + username + "!";
+
+                // Parse the JSON response into a GameAccount object
+
+
+                GameAccount gameAccountResponse = JsonUtility.FromJson<GameAccount>(jsonResponse);
+
+                // Now you can access the properties of gameAccountResponse to get the user's information
+                Debug.Log("User ID: " + gameAccountResponse._id);
+                Debug.Log("Username: " + gameAccountResponse.username);
+                // ... and so on for the other properties of GameAccount
+
+                // Store the user's information in the GameAccount object in your Unity game
+                //GameAccount.userId = gameAccountResponse.userId;
+                //GameAccount.username = gameAccountResponse.username;
+                // ... and so on for the other properties of GameAccount
+
+                // Get a reference to the HideLogin script
+                HideLogin hideLogin = FindObjectOfType<HideLogin>();
+
+                // Hide the login page
+                hideLogin.HideLoginPage();
             }
         }
     }
 
     private IEnumerator TryCreateAccountCoroutine()
-
     {
         string username = usernameInputField.text;
         string password = passwordInputField.text;
