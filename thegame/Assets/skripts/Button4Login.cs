@@ -17,6 +17,24 @@ public class Button4Login : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField passwordInputField;
 
+    public CameraFollow cameraFollowScript;
+
+
+
+    private void Awake() // Add this method
+    {
+        // Find the CameraFollow script in the scene and assign it to cameraFollowScript
+        cameraFollowScript = FindObjectOfType<CameraFollow>();
+    }
+
+
+    public void CompleteLogin()
+    {
+        // Enable the CameraFollow script after login
+        cameraFollowScript.EnableCameraFollow();
+    }
+
+
     private void Start()
     {
         if (loginButton != null)
@@ -106,6 +124,8 @@ public class Button4Login : MonoBehaviour
 
                 // Hide the login page
                 hideLogin.HideLoginPage();
+
+                CompleteLogin();
             }
         }
     }
