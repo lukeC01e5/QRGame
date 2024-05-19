@@ -7,5 +7,20 @@ public class GameAccount
     public int adminFlag;
     public string username;
     public int gold;
+
+
+    public enum ItemType
+    {
+        Sword,
+        HeathPotion,
+        ManaPotion,
+        Coin,
+        MedKit,
+        Meat,
+        Plant,
+    }
+
+    public ItemType itemType;
+    public int amount;
 }
 

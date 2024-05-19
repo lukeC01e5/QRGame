@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         random = new System.Random();
+
         inventory = new Inventory();
+        uiInentory.SetInventory(inventory);
     }
 
     public void Update()

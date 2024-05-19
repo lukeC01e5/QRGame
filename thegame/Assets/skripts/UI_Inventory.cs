@@ -5,11 +5,39 @@ using UnityEngine;
 public class UI_Inventory : MonoBehaviour
 {
     private Inventory inventory;
+    private Transform itemSlotContainer;
+    private Transform itemSlotTemplate;
+
+    private void Awake()
+    {
+        itemSlotContainer = transform.Find("itemSlotContainer");
+        itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+    }
 
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
+        RefreshInventoryItems();
     }
-  
 
+    private void RefreshInventoryItems()
+    {
+        int x = 0;
+        int y = 0;
+        float itemSlotCellSize = 30f;
+        foreach (GameAccount item in inventory.GetItemList())
+        {
+            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
+            itemSlotRectTransform.gameObject.SetActive(true);
+
+            // Position the item slot based on x and y
+            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
+            x++;
+            if (x > 6) // If x > 4, start a new row
+            {
+                x = 0;
+                y++;
+            }
+        }
+    }
 }
