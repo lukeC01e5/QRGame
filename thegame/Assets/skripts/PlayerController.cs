@@ -14,10 +14,17 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    private Inventory inventory;
+
+    [SerializeField] private UI_Inventory uiInentory;
+
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         random = new System.Random();
+        inventory = new Inventory();
     }
 
     public void Update()
