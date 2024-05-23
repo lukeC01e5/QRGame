@@ -16,8 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Inventory inventory;
 
-    [SerializeField] private UI_Inventory uiInentory;
-
+    [SerializeField] private UI_Inventory uiInventory;
 
 
     private void Awake()
@@ -25,8 +24,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         random = new System.Random();
 
-        inventory = new Inventory();
-        uiInentory.SetInventory(inventory);
+        uiInventory = FindObjectOfType<UI_Inventory>();
+        Inventory playerInventory = new Inventory();
+        uiInventory.SetInventory(playerInventory);
     }
 
     public void Update()

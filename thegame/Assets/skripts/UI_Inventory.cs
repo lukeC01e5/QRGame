@@ -1,43 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
     private Inventory inventory;
-    private Transform itemSlotContainer;
-    private Transform itemSlotTemplate;
-
-    private void Awake()
-    {
-        itemSlotContainer = transform.Find("itemSlotContainer");
-        itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
-    }
+    [SerializeField] private Transform itemSlotContainer;
+    [SerializeField] private Transform itemSlotTemplate;
 
     public void SetInventory(Inventory inventory)
     {
+        Debug.Log("Setting inventory: " + inventory);
         this.inventory = inventory;
+        Debug.Log("Number of items in inventory: " + inventory.GetItemList().Count);
         RefreshInventoryItems();
     }
 
     private void RefreshInventoryItems()
     {
+        Debug.Log("Refreshing inventory items for inventory: " + inventory);
         int x = 0;
         int y = 0;
-        float itemSlotCellSize = 30f;
         foreach (GameAccount item in inventory.GetItemList())
         {
-            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
-            itemSlotRectTransform.gameObject.SetActive(true);
-
-            // Position the item slot based on x and y
-            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
+            CreateItemSlot(x, y);
             x++;
-            if (x > 6) // If x > 4, start a new row
+            if (x > 8) // If x > 4, start a new row
             {
                 x = 0;
                 y++;
             }
         }
+    }
+
+    private void CreateItemSlot(int x, int y)
+    {
+        RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
+        Debug.Log("Item slot rect transform: " + itemSlotRectTransform);
+        itemSlotRectTransform.gameObject.SetActive(true);
+        itemSlotRectTransform.anchoredPosition = new Vector2(x * 35f, y * 35f);
     }
 }
