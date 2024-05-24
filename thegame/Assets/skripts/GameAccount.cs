@@ -21,7 +21,7 @@ public class GameAccount
 
     public ItemType itemType;
     public int amount;
-
+    /*
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -35,5 +35,6 @@ public class GameAccount
             case ItemType.Plant: return ItemAssets.Instance.plantSprite;
         }
     }
+    */
 }
 
