@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragTheItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    Transform parentAfterDrag;
+    [HideInInspector] public Transform parentAfterDrag;
+
+    public Image image;
+    //public Item item;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         //throw new System.NotImplementedException();
         Debug.Log("Begin drag");
         parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        image.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -23,9 +29,8 @@ public class DragTheItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
-        Debug.Log("End drag");
+
+        image.raycastTarget = true;
+        transform.SetParent(parentAfterDrag);
     }
-
-
 }
