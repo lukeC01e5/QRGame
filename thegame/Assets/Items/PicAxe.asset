@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9144a1d740708184c9729621e77ae636, type: 3}
+  m_Script: {fileID: 11500000, guid: b27ed8215fc56c047b6634159da26140, type: 3}
   m_Name: PicAxe
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
-  type: 1
+  type: 0
   actionType: 0
   range: {x: 5, y: 4}
   stackable: 1

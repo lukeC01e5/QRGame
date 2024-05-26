@@ -4,12 +4,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/*
+ This skript is what is labelled as InventoryItem in the tutorial.
+ */
+
+
 public class DragTheItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [HideInInspector] public Transform parentAfterDrag;
-
+    [Header("UI")]
     public Image image;
-    //public Item item;
+    [HideInInspector] public Item item;
+
+    public void InitaliseItem(Item newItem)
+    {
+        item = newItem;
+        image.sprite = newItem.image;
+    }
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
