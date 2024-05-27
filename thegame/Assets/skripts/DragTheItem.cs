@@ -12,15 +12,30 @@ using UnityEngine.UI;
 
 public class DragTheItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+
+    public Image image;
+    public int count = 1;
+    public Text countText;
+
+
     [HideInInspector] public Transform parentAfterDrag;
     [Header("UI")]
-    public Image image;
     [HideInInspector] public Item item;
+    
 
     public void InitaliseItem(Item newItem)
     {
         item = newItem;
         image.sprite = newItem.image;
+        //RefreshCount();
+    }
+
+
+    public void RefreshCount()
+    {
+        countText.text = count.ToString();
+        bool textActive = count > 1;
+        countText.gameObject.SetActive(textActive);
     }
 
 

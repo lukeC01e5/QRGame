@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public InventorySlot[] inventorySlots;
 
-    public void AddItem(Item item)
+    public bool AddItem(Item item)
     {
         // Check if any slot has the same item with count lower than max
         for (int i = 0; i < inventorySlots.Length; i++)
@@ -17,8 +17,10 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot == null)
             {
                 SpawnNewItem(item, slot);
-                return;
+                return  true;
             }
+
+
             /*
             if (itemInSlot.item == item &&
                 itemInSlot.count < maxStackedItems &&
@@ -30,6 +32,7 @@ public class InventoryManager : MonoBehaviour
             }
             */
         }
+        return false;
     }
 
     void SpawnNewItem(Item item, InventorySlot slot)
