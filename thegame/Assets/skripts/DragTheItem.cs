@@ -12,22 +12,21 @@ using UnityEngine.UI;
 
 public class DragTheItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
+    [Header("UI")]
     public Image image;
-    public int count = 1;
     public Text countText;
 
+    [HideInInspector] public Item item;
+
+    [HideInInspector] public int count = 1;
 
     [HideInInspector] public Transform parentAfterDrag;
-    [Header("UI")]
-    [HideInInspector] public Item item;
-    
 
     public void InitaliseItem(Item newItem)
     {
         item = newItem;
         image.sprite = newItem.image;
-        //RefreshCount();
+        RefreshCount();
     }
 
 

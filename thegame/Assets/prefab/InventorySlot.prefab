@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1461375090788014378}
   - component: {fileID: 1461375090788014379}
   - component: {fileID: 2179260937009421309}
-  - component: {fileID: 3522262523408064734}
+  - component: {fileID: 3388283029619616229}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &3522262523408064734
+--- !u!114 &3388283029619616229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,3 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fa09fc8ca1e224ea4211f504eeb0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 1461375090788014379}
+  selectedColor: {r: 0.0114631085, g: 0.8679245, b: 0.12291754, a: 0}
+  notSelectedColor: {r: 0.9150943, g: 0.081149824, b: 0.081149824, a: 0}
