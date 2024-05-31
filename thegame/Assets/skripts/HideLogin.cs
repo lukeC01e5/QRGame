@@ -10,6 +10,8 @@ public class HideLogin : MonoBehaviour
     // Reference to the PlayerController
     public PlayerController playerController;
 
+
+
     private void Start()
     {
         // Disable the PlayerController script when the login page is active

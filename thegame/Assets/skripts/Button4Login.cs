@@ -19,7 +19,7 @@ public class Button4Login : MonoBehaviour
 
     public CameraFollow cameraFollowScript;
 
-
+    //GameAccount gameAccount = new GameAccount();
 
     private void Awake() // Add this method
     {
@@ -109,16 +109,21 @@ public class Button4Login : MonoBehaviour
 
                 GameAccount gameAccountResponse = JsonUtility.FromJson<GameAccount>(jsonResponse);
 
+
+
                 // Now you can access the properties of gameAccountResponse to get the user's information
                 Debug.Log("User ID: " + gameAccountResponse._id);
                 Debug.Log("Username: " + gameAccountResponse.username);
                 // ... and so on for the other properties of GameAccount
 
                 // Store the user's information in the GameAccount object in your Unity game
-                //GameAccount.userId = gameAccountResponse.userId;
-                //GameAccount.username = gameAccountResponse.username;
+                GameAccount gameAccount = new GameAccount();
+                gameAccount.userId = gameAccountResponse.userId;
+                gameAccount.username = gameAccountResponse.username;
+                gameAccount.coin = gameAccountResponse.coin;
                 // ... and so on for the other properties of GameAccount
 
+                gameAccount.LogValues();
                 // Get a reference to the HideLogin script
                 HideLogin hideLogin = FindObjectOfType<HideLogin>();
 
