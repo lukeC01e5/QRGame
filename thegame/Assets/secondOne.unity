@@ -1065,7 +1065,13 @@ MonoBehaviour:
   createButton: {fileID: 765610024}
   usernameInputField: {fileID: 191346153}
   passwordInputField: {fileID: 2060020090}
-  cameraFollowScript: {fileID: 0}
+  inventoryManager: {fileID: 1541255729}
+  coinItem: {fileID: 11400000, guid: ec999119d4360434599b0b7f8b2a7766, type: 2}
+  waterItem: {fileID: 11400000, guid: e4780bbc0c7a0664d8e5c608eadd5b4b, type: 2}
+  plantItem: {fileID: 11400000, guid: bfbf04d1506bcbd4bbc2881a7149f9e1, type: 2}
+  meatItem: {fileID: 11400000, guid: 93a50a30534faa140805aced07ff8165, type: 2}
+  crystalItem: {fileID: 11400000, guid: dfbba033927faba4983fb66ef44fe091, type: 2}
+  cameraFollowScript: {fileID: 519420033}
 --- !u!1001 &316215696
 PrefabInstance:
   m_ObjectHideFlags: 0

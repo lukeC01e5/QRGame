@@ -10,12 +10,24 @@ public class Button4Login : MonoBehaviour
 {
     [SerializeField] private string loginEndpoint = "http://gameapi-2e9bb6e38339.herokuapp.com/api/v1/login";
     [SerializeField] private string createEndpoint = "http://gameapi-2e9bb6e38339.herokuapp.com/api/v1/create_account";
-
     [SerializeField] private TextMeshProUGUI alertText;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button createButton;
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField passwordInputField;
+
+    public InventoryManager inventoryManager;
+
+
+    public Item coinItem;
+    public Item waterItem;
+    public Item plantItem;
+    public Item meatItem;
+    public Item crystalItem;
+
+    // Rest of your code...
+
+
 
     public CameraFollow cameraFollowScript;
 
@@ -104,26 +116,53 @@ public class Button4Login : MonoBehaviour
                 Debug.Log("Login request succeeded. Server response: " + jsonResponse);
                 alertText.text = "Welcome " + username + "!";
 
-                // Parse the JSON response into a GameAccount object
-
-
+                Debug.Log(jsonResponse);
                 GameAccount gameAccountResponse = JsonUtility.FromJson<GameAccount>(jsonResponse);
 
-
-
-                // Now you can access the properties of gameAccountResponse to get the user's information
+                // Log the amounts for all items
                 Debug.Log("User ID: " + gameAccountResponse._id);
                 Debug.Log("Username: " + gameAccountResponse.username);
-                // ... and so on for the other properties of GameAccount
+                Debug.Log("Coin: " + gameAccountResponse.coin);
+                Debug.Log("Water: " + gameAccountResponse.water);
+                Debug.Log("Plant: " + gameAccountResponse.plant);
+                Debug.Log("Meat: " + gameAccountResponse.meat);
+                Debug.Log("Crystal: " + gameAccountResponse.crystal);
 
                 // Store the user's information in the GameAccount object in your Unity game
                 GameAccount gameAccount = new GameAccount();
-                gameAccount.userId = gameAccountResponse.userId;
                 gameAccount.username = gameAccountResponse.username;
                 gameAccount.coin = gameAccountResponse.coin;
-                // ... and so on for the other properties of GameAccount
+                gameAccount.water = gameAccountResponse.water;
+                gameAccount.plant = gameAccountResponse.plant;
+                gameAccount.meat = gameAccountResponse.meat;
+                gameAccount.crystal = gameAccountResponse.crystal;
 
-                gameAccount.LogValues();
+                // Add resources to the inventory
+                for (int i = 0; i < gameAccount.coin; i++)
+                {
+                    inventoryManager.AddItem(coinItem);
+                }
+
+                for (int i = 0; i < gameAccount.water; i++)
+                {
+                    inventoryManager.AddItem(waterItem);
+                }
+
+                for (int i = 0; i < gameAccount.plant; i++)
+                {
+                    inventoryManager.AddItem(plantItem);
+                }
+
+                for (int i = 0; i < gameAccount.meat; i++)
+                {
+                    inventoryManager.AddItem(meatItem);
+                }
+
+                for (int i = 0; i < gameAccount.crystal; i++)
+                {
+                    inventoryManager.AddItem(crystalItem);
+                }
+
                 // Get a reference to the HideLogin script
                 HideLogin hideLogin = FindObjectOfType<HideLogin>();
 
