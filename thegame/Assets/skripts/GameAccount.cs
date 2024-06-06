@@ -3,6 +3,8 @@ using UnityEngine;
 [System.Serializable]
 public class GameAccount
 {
+    public string[] creatures; // Add this line
+
     public string _id;
     public string username;
     public int coin;

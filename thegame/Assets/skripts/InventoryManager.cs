@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     public int maxStackedItems = 4;
     public GameObject inventoryItemPrefab;
+    public GameObject creatureItemPrefab; // Add this line
     public InventorySlot[] inventorySlots;
 
     int selectedSlot = -1;
@@ -37,17 +38,33 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = newValue;
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(Item item, bool isCreature = false)
     {
+        // Check if item is null
+        if (item == null)
+        {
+            Debug.Log("Item is null");
+            return false;
+        }
+
         // Check if any slot has the same item with count lower than max
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
+            if (slot == null)
+            {
+                Debug.Log("Slot " + i + " is null");
+                continue;
+            }
+
             DragTheItem itemInSlot = slot.GetComponentInChildren<DragTheItem>();
-            if (itemInSlot != null &&
-                itemInSlot.item == item &&
-                itemInSlot.count < maxStackedItems &&
-                itemInSlot.item.stackable == true)
+            if (itemInSlot == null)
+            {
+                Debug.Log("Item in slot " + i + " is null");
+                continue;
+            }
+
+            if (itemInSlot.item == item && itemInSlot.count < maxStackedItems && itemInSlot.item.stackable == true)
             {
                 itemInSlot.count++;
                 itemInSlot.RefreshCount();
@@ -59,23 +76,37 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
+            if (slot == null)
+            {
+                Debug.Log("Slot " + i + " is null");
+                continue;
+            }
+
             DragTheItem itemInSlot = slot.GetComponentInChildren<DragTheItem>();
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot);
+                SpawnNewItem(item, slot, isCreature);
                 return true;
             }
         }
 
         return false;
     }
-
-    void SpawnNewItem(Item item, InventorySlot slot)
+    void SpawnNewItem(Item item, InventorySlot slot, bool isCreature = false)
     {
-        GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+        GameObject newItemGo;
+        if (isCreature)
+        {
+            newItemGo = Instantiate(creatureItemPrefab, slot.transform);
+        }
+        else
+        {
+            newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+        }
         DragTheItem inventoryItem = newItemGo.GetComponent<DragTheItem>();
         inventoryItem.InitaliseItem(item);
     }
+
 
 
     public Item GetSelectedItem(bool use)

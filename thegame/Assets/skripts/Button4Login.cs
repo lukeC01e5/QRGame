@@ -25,8 +25,21 @@ public class Button4Login : MonoBehaviour
     public Item meatItem;
     public Item crystalItem;
 
-    // Rest of your code...
 
+
+    public Dictionary<string, Item> creatureItems = new Dictionary<string, Item>();
+
+    public Item babyDragonItem;
+    public Item dinoEggItem;
+    public Item wolfPupItem;
+    public Item kittenItem;
+    public Item chickyItem;
+    public Item fishyItem;
+    public Item squidyItem;
+    public Item larveItem;
+    public Item sproutyItem;
+    public Item roboCrabItem;
+    public Item ghostItem;
 
 
     public CameraFollow cameraFollowScript;
@@ -54,6 +67,12 @@ public class Button4Login : MonoBehaviour
 
         if (createButton != null)
             createButton.onClick.AddListener(CreateAccount);
+
+
+        creatureItems.Add("babyDragon", babyDragonItem);
+
+        creatureItems.Add("roboCrab", roboCrabItem);
+
     }
 
     public class User
@@ -161,6 +180,23 @@ public class Button4Login : MonoBehaviour
                 for (int i = 0; i < gameAccount.crystal; i++)
                 {
                     inventoryManager.AddItem(crystalItem);
+                }
+
+                // Add one item for each unique creature
+                HashSet<string> uniqueCreatures = new HashSet<string>(gameAccountResponse.creatures);
+                foreach (string creature in uniqueCreatures)
+                {
+                    Debug.Log("Read creature from server response: " + creature); // Log the creature that was read from the server response
+
+                    if (creatureItems.TryGetValue(creature, out Item creatureItem))
+                    {
+                        Debug.Log("Adding creature item to inventory: " + creatureItem.name); // Log the Item that is being added to the inventory
+                        inventoryManager.AddItem(creatureItem);
+                    }
+                    else
+                    {
+                        Debug.LogError("No item found for creature: " + creature);
+                    }
                 }
 
                 // Get a reference to the HideLogin script
