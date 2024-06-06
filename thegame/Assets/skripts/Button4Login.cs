@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System.Text;
+using System;
 
 public class Button4Login : MonoBehaviour
 {
@@ -68,11 +69,17 @@ public class Button4Login : MonoBehaviour
         if (createButton != null)
             createButton.onClick.AddListener(CreateAccount);
 
-
         creatureItems.Add("babyDragon", babyDragonItem);
-
+        creatureItems.Add("dinoEgg", dinoEggItem);
+        creatureItems.Add("wolfPup", wolfPupItem);
+        creatureItems.Add("kitten", kittenItem);
+        creatureItems.Add("chicky", chickyItem);
+        creatureItems.Add("fishy", fishyItem);
+        creatureItems.Add("squidy", squidyItem);
+        creatureItems.Add("larve", larveItem);
+        creatureItems.Add("sprouty", sproutyItem);
         creatureItems.Add("roboCrab", roboCrabItem);
-
+        creatureItems.Add("ghost", ghostItem);
     }
 
     public class User
@@ -122,6 +129,10 @@ public class Button4Login : MonoBehaviour
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             webRequest.SetRequestHeader("Content-Type", "application/json");
 
+            // Add the authentication header
+            string auth = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password));
+            webRequest.SetRequestHeader("Authorization", "Basic " + auth);
+
             yield return webRequest.SendWebRequest();
 
             if (webRequest.result != UnityWebRequest.Result.Success)
@@ -156,6 +167,24 @@ public class Button4Login : MonoBehaviour
                 gameAccount.meat = gameAccountResponse.meat;
                 gameAccount.crystal = gameAccountResponse.crystal;
 
+
+                // Add one item for each unique creature
+                HashSet<string> uniqueCreatures = new HashSet<string>(gameAccountResponse.creatures);
+                foreach (string creature in uniqueCreatures)
+                {
+                    Debug.Log("Read creature from server response: " + creature); // Log the creature that was read from the server response
+
+                    if (creatureItems.TryGetValue(creature, out Item creatureItem))
+                    {
+                        Debug.Log("Adding creature item to inventory: " + creatureItem.name); // Log the Item that is being added to the inventory
+                        inventoryManager.AddItem(creatureItem);
+                    }
+                    else
+                    {
+                        Debug.LogError("No item found for creature: " + creature);
+                    }
+                }
+
                 // Add resources to the inventory
                 for (int i = 0; i < gameAccount.coin; i++)
                 {
@@ -182,22 +211,8 @@ public class Button4Login : MonoBehaviour
                     inventoryManager.AddItem(crystalItem);
                 }
 
-                // Add one item for each unique creature
-                HashSet<string> uniqueCreatures = new HashSet<string>(gameAccountResponse.creatures);
-                foreach (string creature in uniqueCreatures)
-                {
-                    Debug.Log("Read creature from server response: " + creature); // Log the creature that was read from the server response
+                // ... (keep the existing code here)
 
-                    if (creatureItems.TryGetValue(creature, out Item creatureItem))
-                    {
-                        Debug.Log("Adding creature item to inventory: " + creatureItem.name); // Log the Item that is being added to the inventory
-                        inventoryManager.AddItem(creatureItem);
-                    }
-                    else
-                    {
-                        Debug.LogError("No item found for creature: " + creature);
-                    }
-                }
 
                 // Get a reference to the HideLogin script
                 HideLogin hideLogin = FindObjectOfType<HideLogin>();
