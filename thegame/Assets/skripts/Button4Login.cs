@@ -19,6 +19,7 @@ public class Button4Login : MonoBehaviour
 
     public InventoryManager inventoryManager;
 
+    public HideLogin hideLogin; // Add this field
 
     public Item coinItem;
     public Item waterItem;
@@ -258,11 +259,15 @@ public class Button4Login : MonoBehaviour
             {
                 Debug.LogError("Login request failed with error: " + webRequest.error);
                 Debug.LogError("Response code: " + webRequest.responseCode);
+                alertText.text = "Login failed!";
+                ActivateButtons(true); // Enable buttons if login failed
             }
             else
             {
                 string jsonResponse = webRequest.downloadHandler.text;
                 Debug.Log("Login request succeeded. Server response: " + jsonResponse);
+                alertText.text = "Login successful!";
+                hideLogin.HideLoginPage(); // Hide the login page
             }
         }
     }
